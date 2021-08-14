@@ -9,7 +9,7 @@
 class Frame : public wxFrame
 {
     public:
-    Frame(const wxString& title);
+    Frame(const wxString& title, int width, int height);
 };
 
 #endif // FRAME_H_INCLUDED
