@@ -1,4 +1,5 @@
 #include "StopButton.h"
+#include "Frame.h"
 
 StopButton::StopButton(wxPanel* panel, wxStandardID ID, const char* title, wxPoint pos) : wxButton(panel, ID, wxString(title),
 	pos)
@@ -7,7 +8,8 @@ StopButton::StopButton(wxPanel* panel, wxStandardID ID, const char* title, wxPoi
 	Connect(ID, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(StopButton::Clicked));
 }
 
-void StopButton::Clicked(wxCommandEvent& WXUNUSED(event))
+void StopButton::Clicked(wxCommandEvent& WXUNUSED)
 {
-	
+	Frame* frame = (Frame*)m_parent->GetParent();
+	frame->timer->StopTimer(WXUNUSED);
 }

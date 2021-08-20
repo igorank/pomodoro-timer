@@ -30,12 +30,13 @@ void Timer::UpdateDisplayedTime()
 	if (m_Timer.IsRunning())
 	{
 		const wxDateTime currentTime = wxDateTime::Now();
-		const wxTimeSpan ellapsedTime = currentTime - StartTime;
+		const wxTimeSpan pomodoroSession = wxTimeSpan::Minutes(25);
+		const wxTimeSpan ellapsedTime = (((currentTime - StartTime) - pomodoroSession) * -1);
 
 		this->SetLabel(ellapsedTime.Format("%M:%S"));
 	}
 	else
 	{
-		this->SetLabel("No Time!");
+		this->SetLabel("25:00");
 	}
 }
