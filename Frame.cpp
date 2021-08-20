@@ -18,5 +18,7 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 
 	startbutton->SetFocus();
 
+	stopbutton = new StopButton(parent, wxID_ANY, "Stop", wxPoint(200,200));
+
 	timer = new Timer(parent,wxID_ANY,"dddddddddddddddddddddddd");
 }

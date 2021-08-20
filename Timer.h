@@ -1,4 +1,11 @@
-#include <wx/wx.h>
+#ifndef TIMER_H_INCLUDED
+#define TIMER_H_INCLUDED
+
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+	#include <wx/wx.h>
+#endif
+
 #include <wx/datetime.h>
 
 class Timer : wxStaticText
@@ -15,3 +22,4 @@ class Timer : wxStaticText
 		void UpdateDisplayedTime();
 };
 
+#endif

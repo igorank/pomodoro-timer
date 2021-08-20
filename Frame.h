@@ -7,6 +7,7 @@
 #endif
 
 #include "StartButton.h"
+#include "StopButton.h"
 #include "Timer.h"
 
 const int windowWidth = 400;
@@ -19,7 +20,8 @@ class Frame : public wxFrame
 
     wxPanel* parent;
     StartButton* startbutton;
+    StopButton* stopbutton;
     Timer* timer;
 };
 
-#endif // FRAME_H_INCLUDED
+#endif

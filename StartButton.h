@@ -9,10 +9,10 @@
 class StartButton : public wxButton
 {
 	public:
-		StartButton(wxPanel* panel, wxStandardID, const char * title);
+		StartButton(wxPanel* panel, wxStandardID ID, const char * title);
 		void Clicked(wxCommandEvent& WXUNUSED(event));
 
 		wxPanel* m_parent;
 };
 
-#endif // FRAME_H_INCLUDED
+#endif

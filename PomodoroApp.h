@@ -6,10 +6,14 @@
     #include <wx/wx.h>
 #endif
 
+#include "Frame.h"
+
 class PomodoroApp : public wxApp
 {
     public:
-    virtual bool OnInit();
+        Frame* frame;
+
+        virtual bool OnInit();
 };
 
-#endif // POMODOROAPP_H_INCLUDED
+#endif
