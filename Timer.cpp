@@ -4,7 +4,7 @@
 Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticText(parent, id, label, wxDefaultPosition, wxDefaultSize,
 	wxALIGN_CENTRE_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxST_NO_AUTORESIZE | wxBORDER_SIMPLE)
 {
-	state = STOPPED;
+	state = INIT;
 	UpdateDisplayedTime();
 	m_Timer.Bind(wxEVT_TIMER, &Timer::OnUpdateDisplayedTime, this);
 }
@@ -12,7 +12,6 @@ Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticT
 void Timer::StartTimer(wxCommandEvent&)
 {
 	StartTime = wxDateTime::Now();
-	state == RUNNING;
 	m_Timer.Start(1000);
 	UpdateDisplayedTime();
 }
@@ -34,6 +33,7 @@ void Timer::PauseTimer(wxCommandEvent&)
 
 void Timer::OnUpdateDisplayedTime(wxTimerEvent&)
 {
+	state = RUNNING;
 	UpdateDisplayedTime();
 }
 
@@ -42,7 +42,11 @@ void Timer::UpdateDisplayedTime()
 	if (m_Timer.IsRunning())
 	{
 		currentTime = wxDateTime::Now();
-		state == STOPPED ? pomodoroSession = wxTimeSpan::Minutes(25) : pomodoroSession = paused_time;
+		if (state == INIT || state == STOPPED)
+			pomodoroSession = wxTimeSpan::Minutes(25);
+		else if (state == PAUSED)
+			pomodoroSession = paused_time;
+		//state == STOPPED || state == RUNNING ? pomodoroSession = wxTimeSpan::Minutes(25) : pomodoroSession = paused_time;
 		//pomodoroSession = wxTimeSpan::Minutes(25);
 		ellapsedTime = (((currentTime - StartTime) - pomodoroSession) * -1);
 

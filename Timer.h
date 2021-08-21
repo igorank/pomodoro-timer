@@ -21,7 +21,7 @@ class Timer : public wxStaticText
 		wxTimeSpan ellapsedTime;
 		wxTimeSpan paused_time;
 
-		enum STATE {RUNNING, PAUSED, STOPPED};
+		enum STATE { INIT, RUNNING, PAUSED, STOPPED, CONTINUE};
 		STATE state;
 
 		void StartTimer(wxCommandEvent&);

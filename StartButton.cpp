@@ -10,7 +10,14 @@ StartButton::StartButton(wxPanel* panel, wxStandardID ID, const char * title) : 
 void StartButton::Clicked(wxCommandEvent& WXUNUSED)
 {
 	Frame* frame = (Frame*)m_parent->GetParent();
-	frame->timer->StartTimer(WXUNUSED);
+	//frame->timer->StartTimer(WXUNUSED);
 	if (frame->timer->m_Timer.IsRunning())
+	{
 		this->SetLabel(wxString("Reset"));
+		frame->timer->StopTimer(WXUNUSED);
+		frame->timer->StartTimer(WXUNUSED);
+	}
+	else
+		frame->timer->StartTimer(WXUNUSED);
+	this->SetLabel(wxString("Reset"));
 }
