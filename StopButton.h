@@ -9,7 +9,7 @@
 class StopButton : public wxButton
 {
 public:
-	StopButton(wxPanel* panel, wxStandardID ID, const char* title, wxPoint pos);
+	StopButton(wxPanel* panel, wxStandardID ID, const char* title);
 	void Clicked(wxCommandEvent& WXUNUSED(event));
 
 	wxPanel* m_parent;

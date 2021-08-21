@@ -8,20 +8,29 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 
 	parent = new wxPanel(this, wxID_ANY);
 	
-	wxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
-	sizer->AddStretchSpacer();
+	timer = new Timer(parent, wxID_ANY, "test");
+
+	wxSizer* top_sizer = new wxBoxSizer(wxVERTICAL);
+	wxSizer* buttons_sizer = new wxBoxSizer(wxHORIZONTAL);
+	
+	wxFont font;
+	font = timer->GetFont();
+	font.MakeBold().MakeLarger();
+	timer->SetFont(font);
+
+	buttons_sizer->AddStretchSpacer();
 
 	startbutton = new StartButton(parent, wxID_OK, "Start");
-	stopbutton = new StopButton(parent, wxID_ANY, "Stop", wxPoint(200, 200));
+	stopbutton = new StopButton(parent, wxID_ANY, "Stop");
 
-	sizer->Add(stopbutton, 0, wxALL | wxALIGN_BOTTOM, 50);
+	buttons_sizer->Add(stopbutton, 0, wxALL | wxALIGN_BOTTOM, 50);
+	buttons_sizer->Add(startbutton, 0, wxALL | wxALIGN_BOTTOM, 50);
 
-	sizer->Add(startbutton, 0, wxALL | wxALIGN_BOTTOM, 50);
-	sizer->AddStretchSpacer();
+	top_sizer->Add(timer, 0, wxTOP | wxALIGN_CENTER, 150);
 
-	parent->SetSizer(sizer);
+	buttons_sizer->AddStretchSpacer();
 
-	startbutton->SetFocus();
+	top_sizer->Add(buttons_sizer, wxSizerFlags(0).Center());;
 
-	timer = new Timer(parent,wxID_ANY,"dddddddddddddddddddddddd");
+	parent->SetSizerAndFit(top_sizer);
 }

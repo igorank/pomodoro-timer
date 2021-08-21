@@ -8,7 +8,7 @@
 
 #include <wx/datetime.h>
 
-class Timer : wxStaticText
+class Timer : public wxStaticText
 {
 	public:
 		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
