@@ -4,6 +4,7 @@
 Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticText(parent, id, label, wxDefaultPosition, wxDefaultSize,
 	wxALIGN_CENTRE_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxST_NO_AUTORESIZE | wxBORDER_SIMPLE)
 {
+	state = STOPPED;
 	UpdateDisplayedTime();
 	m_Timer.Bind(wxEVT_TIMER, &Timer::OnUpdateDisplayedTime, this);
 }
@@ -11,6 +12,7 @@ Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticT
 void Timer::StartTimer(wxCommandEvent&)
 {
 	StartTime = wxDateTime::Now();
+	state == RUNNING;
 	m_Timer.Start(1000);
 	UpdateDisplayedTime();
 }
@@ -18,7 +20,16 @@ void Timer::StartTimer(wxCommandEvent&)
 void Timer::StopTimer(wxCommandEvent&)
 {
 	m_Timer.Stop();
+	state = STOPPED;
 	UpdateDisplayedTime();
+}
+
+void Timer::PauseTimer(wxCommandEvent&)
+{
+	m_Timer.Stop();
+	state = PAUSED;
+	paused_time = ellapsedTime;
+	//UpdateDisplayedTime();
 }
 
 void Timer::OnUpdateDisplayedTime(wxTimerEvent&)
@@ -30,14 +41,17 @@ void Timer::UpdateDisplayedTime()
 {
 	if (m_Timer.IsRunning())
 	{
-		const wxDateTime currentTime = wxDateTime::Now();
-		const wxTimeSpan pomodoroSession = wxTimeSpan::Minutes(25);
-		const wxTimeSpan ellapsedTime = (((currentTime - StartTime) - pomodoroSession) * -1);
+		currentTime = wxDateTime::Now();
+		state == STOPPED ? pomodoroSession = wxTimeSpan::Minutes(25) : pomodoroSession = paused_time;
+		//pomodoroSession = wxTimeSpan::Minutes(25);
+		ellapsedTime = (((currentTime - StartTime) - pomodoroSession) * -1);
 
 		this->SetLabel(ellapsedTime.Format("%M:%S"));
 	}
-	else
+	else 
 	{
 		this->SetLabel("25:00");
 	}
 }
+
+

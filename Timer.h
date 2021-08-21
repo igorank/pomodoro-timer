@@ -15,11 +15,24 @@ class Timer : public wxStaticText
 
 		wxTimer m_Timer;
 		wxDateTime StartTime;
+		wxDateTime currentTime;
+
+		wxTimeSpan pomodoroSession;
+		wxTimeSpan ellapsedTime;
+		wxTimeSpan paused_time;
+
+		enum STATE {RUNNING, PAUSED, STOPPED};
+		STATE state;
 
 		void StartTimer(wxCommandEvent&);
 		void StopTimer(wxCommandEvent&);
+		void PauseTimer(wxCommandEvent&);
 		void OnUpdateDisplayedTime(wxTimerEvent&);
 		void UpdateDisplayedTime();
+
+
+		bool isPaused() { if (state == PAUSED) return true; }
+		STATE GetState() const { return state; }
 };
 
 #endif

@@ -11,4 +11,5 @@ void StopButton::Clicked(wxCommandEvent& WXUNUSED)
 {
 	Frame* frame = (Frame*)m_parent->GetParent();
 	frame->timer->StopTimer(WXUNUSED);
+	frame->startbutton->SetLabel("Start");
 }
