@@ -5,10 +5,12 @@ StartButton::StartButton(wxPanel* panel, wxStandardID ID, const char * title) : 
 {
 	m_parent = panel;
 	Connect(ID, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(StartButton::Clicked));
+	clicked_atl_once = false;
 }
 
 void StartButton::Clicked(wxCommandEvent& WXUNUSED)
 {
+	clicked_atl_once = true;
 	Frame* frame = (Frame*)m_parent->GetParent();
 	if (frame->timer->getTimer().IsRunning())
 	{
