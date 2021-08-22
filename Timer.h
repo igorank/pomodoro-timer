@@ -11,7 +11,7 @@
 class Timer : public wxStaticText
 {
 	private:
-		enum STATE { INIT, RUNNING, PAUSED, STOPPED, CONTINUE };
+		enum STATE { INIT, PAUSED, STOPPED};
 		STATE state;
 
 		wxTimer m_Timer;

@@ -32,7 +32,6 @@ void Timer::PauseTimer(wxCommandEvent&)
 
 void Timer::OnUpdateDisplayedTime(wxTimerEvent&)
 {
-	state = RUNNING;
 	UpdateDisplayedTime();
 }
 
