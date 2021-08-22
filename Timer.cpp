@@ -5,6 +5,7 @@ Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticT
 	wxALIGN_CENTRE_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxST_NO_AUTORESIZE | wxBORDER_SIMPLE)
 {
 	state = INIT;
+	SetupFont();
 	SetStudySession(25);
 	UpdateDisplayedTime();
 	m_Timer.Bind(wxEVT_TIMER, &Timer::OnUpdateDisplayedTime, this);
@@ -53,6 +54,13 @@ void Timer::UpdateDisplayedTime()
 	{
 		this->SetLabel(StudySessionToStr(GetStudySession()));
 	}
+}
+
+void Timer::SetupFont()
+{
+	font = this->GetFont();
+	font.MakeBold().MakeLarger();
+	this->SetFont(font);
 }
 
 std::string Timer::StudySessionToStr(int min)

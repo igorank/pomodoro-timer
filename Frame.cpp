@@ -12,11 +12,6 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 
 	wxSizer* top_sizer = new wxBoxSizer(wxVERTICAL);
 	wxSizer* buttons_sizer = new wxBoxSizer(wxHORIZONTAL);
-	
-	wxFont font;
-	font = timer->GetFont();
-	font.MakeBold().MakeLarger();
-	timer->SetFont(font);
 
 	buttons_sizer->AddStretchSpacer();
 

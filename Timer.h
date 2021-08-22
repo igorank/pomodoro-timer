@@ -22,6 +22,8 @@ class Timer : public wxStaticText
 		wxTimeSpan ellapsedTime;
 		wxTimeSpan paused_time;
 
+		wxFont font;
+
 		int StudySession;
 	public:
 		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
@@ -32,6 +34,7 @@ class Timer : public wxStaticText
 		void OnUpdateDisplayedTime(wxTimerEvent&);
 		void UpdateDisplayedTime();
 		void SetStudySession(int min) { StudySession = min; }
+		void SetupFont();
 
 		int GetStudySession() { return StudySession; }
 		wxTimer& getTimer() { return m_Timer; }
