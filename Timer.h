@@ -21,6 +21,8 @@ class Timer : public wxStaticText
 		wxTimeSpan pomodoroSession;
 		wxTimeSpan ellapsedTime;
 		wxTimeSpan paused_time;
+
+		int StudySession;
 	public:
 		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
 
@@ -29,8 +31,11 @@ class Timer : public wxStaticText
 		void PauseTimer(wxCommandEvent&);
 		void OnUpdateDisplayedTime(wxTimerEvent&);
 		void UpdateDisplayedTime();
+		void SetStudySession(int min) { StudySession = min; }
 
+		int GetStudySession() { return StudySession; }
 		wxTimer& getTimer() { return m_Timer; }
+		std::string StudySessionToStr(int min);
 };
 
 #endif

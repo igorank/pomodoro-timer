@@ -5,6 +5,7 @@ Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticT
 	wxALIGN_CENTRE_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxST_NO_AUTORESIZE | wxBORDER_SIMPLE)
 {
 	state = INIT;
+	SetStudySession(25);
 	UpdateDisplayedTime();
 	m_Timer.Bind(wxEVT_TIMER, &Timer::OnUpdateDisplayedTime, this);
 }
@@ -41,7 +42,7 @@ void Timer::UpdateDisplayedTime()
 	{
 		currentTime = wxDateTime::Now();
 		if (state == INIT || state == STOPPED)
-			pomodoroSession = wxTimeSpan::Minutes(25);
+			pomodoroSession = wxTimeSpan::Minutes(GetStudySession());
 		else if (state == PAUSED)
 			pomodoroSession = paused_time;
 		ellapsedTime = (((currentTime - StartTime) - pomodoroSession) * -1);
@@ -50,8 +51,12 @@ void Timer::UpdateDisplayedTime()
 	}
 	else 
 	{
-		this->SetLabel("25:00");
+		this->SetLabel(StudySessionToStr(GetStudySession()));
 	}
 }
 
-
+std::string Timer::StudySessionToStr(int min)
+{
+	std::string strlabel = std::to_string(min);
+	return strlabel += ":00";
+}
