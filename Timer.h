@@ -24,7 +24,10 @@ class Timer : public wxStaticText
 
 		wxFont font;
 
-		int StudySession;
+		int SessionTime;
+		int ShortBreaksNum;
+		int ShortBreakTime;
+		bool IsSessionDone;
 	public:
 		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
 
@@ -33,12 +36,12 @@ class Timer : public wxStaticText
 		void PauseTimer(wxCommandEvent&);
 		void OnUpdateDisplayedTime(wxTimerEvent&);
 		void UpdateDisplayedTime();
-		void SetStudySession(int min) { StudySession = min; }
+		void SetSessionTime(int min) { SessionTime = min; }
 		void SetupFont();
 
-		int GetStudySession() { return StudySession; }
+		int GetSessionTime() { return SessionTime; }
 		wxTimer& getTimer() { return m_Timer; }
-		std::string StudySessionToStr(int min);
+		std::string SessionTimeToStr(int min);
 };
 
 #endif

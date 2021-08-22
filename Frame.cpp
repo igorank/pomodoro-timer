@@ -27,7 +27,7 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 
 	buttons_sizer->AddStretchSpacer();
 
-	top_sizer->Add(buttons_sizer, wxSizerFlags(0).Center());;
+	top_sizer->Add(buttons_sizer, wxSizerFlags(0).Center());
 
 	parent->SetSizerAndFit(top_sizer);
 }
