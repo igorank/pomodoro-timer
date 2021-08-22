@@ -10,8 +10,9 @@
 
 class Timer : public wxStaticText
 {
-	public:
-		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
+	private:
+		enum STATE { INIT, RUNNING, PAUSED, STOPPED, CONTINUE };
+		STATE state;
 
 		wxTimer m_Timer;
 		wxDateTime StartTime;
@@ -20,9 +21,8 @@ class Timer : public wxStaticText
 		wxTimeSpan pomodoroSession;
 		wxTimeSpan ellapsedTime;
 		wxTimeSpan paused_time;
-
-		enum STATE { INIT, RUNNING, PAUSED, STOPPED, CONTINUE};
-		STATE state;
+	public:
+		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
 
 		void StartTimer(wxCommandEvent&);
 		void StopTimer(wxCommandEvent&);
@@ -30,9 +30,7 @@ class Timer : public wxStaticText
 		void OnUpdateDisplayedTime(wxTimerEvent&);
 		void UpdateDisplayedTime();
 
-
-		bool isPaused() { if (state == PAUSED) return true; }
-		STATE GetState() const { return state; }
+		wxTimer& getTimer() { return m_Timer; }
 };
 
 #endif

@@ -8,11 +8,11 @@
 
 class StartButton : public wxButton
 {
+	private:
+		wxPanel* m_parent;
 	public:
 		StartButton(wxPanel* panel, wxStandardID ID, const char * title);
 		void Clicked(wxCommandEvent& WXUNUSED(event));
-
-		wxPanel* m_parent;
 };
 
 #endif

@@ -28,7 +28,6 @@ void Timer::PauseTimer(wxCommandEvent&)
 	m_Timer.Stop();
 	state = PAUSED;
 	paused_time = ellapsedTime;
-	//UpdateDisplayedTime();
 }
 
 void Timer::OnUpdateDisplayedTime(wxTimerEvent&)
@@ -46,8 +45,6 @@ void Timer::UpdateDisplayedTime()
 			pomodoroSession = wxTimeSpan::Minutes(25);
 		else if (state == PAUSED)
 			pomodoroSession = paused_time;
-		//state == STOPPED || state == RUNNING ? pomodoroSession = wxTimeSpan::Minutes(25) : pomodoroSession = paused_time;
-		//pomodoroSession = wxTimeSpan::Minutes(25);
 		ellapsedTime = (((currentTime - StartTime) - pomodoroSession) * -1);
 
 		this->SetLabel(ellapsedTime.Format("%M:%S"));

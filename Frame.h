@@ -17,13 +17,13 @@ const int windowHeight = 400;
 class Frame : public wxFrame
 {
     public:
-    Frame(const wxString& title, int width, int height);
+        wxPanel* parent;
+        StartButton* startbutton;
+        StopButton* stopbutton;
+        PauseButton* pausebutton;
+        Timer* timer;
 
-    wxPanel* parent;
-    StartButton* startbutton;
-    StopButton* stopbutton;
-    PauseButton* pausebutton;
-    Timer* timer;
+        Frame(const wxString& title, int width, int height);
 };
 
 #endif

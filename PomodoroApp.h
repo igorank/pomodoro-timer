@@ -10,9 +10,9 @@
 
 class PomodoroApp : public wxApp
 {
-    public:
+    private:
         Frame* frame;
-
+    public:
         virtual bool OnInit();
 };
 
