@@ -11,8 +11,8 @@
 class Timer : public wxStaticText
 {
 	private:
-		enum STATE {INIT, PAUSED, STOPPED};
-		STATE state;
+		enum TimerState {INIT, PAUSED, STOPPED};
+		TimerState timerstate;
 
 		enum PomodoroState {POMODORO,SHORT_BREAK,LONG_BREAK};
 		PomodoroState pomodorostate;
@@ -27,26 +27,27 @@ class Timer : public wxStaticText
 
 		wxFont font;
 
-		int SessionTime;
 		int SessionsNum;
+		int SessionTime;
 		int ShortBreakTime;
 		int LongBreakTime;
 		int PomodoroCount;
 	public:
 		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
 
+		void SetupFont();
+		void UpdateDisplayedTime();
 		void StartTimer(wxCommandEvent&);
 		void StopTimer(wxCommandEvent&);
 		void PauseTimer(wxCommandEvent&);
 		void OnUpdateDisplayedTime(wxTimerEvent&);
-		void UpdateDisplayedTime();
 		void SetSessionTime(int min) { SessionTime = min; }
 		void SetSessionsNum(int num) { SessionsNum = num; }
 		void SetShortBreakTime(int min) { ShortBreakTime = min; }
 		void SetLongBreakTime(int min) { LongBreakTime = min; }
 		void SetPomodoroCount(int num) { PomodoroCount = num; }
-		void SetupFont();
 		void ChangeState(PomodoroState pomostate, int Time);
+		void SetSettings(int sN, int sT, int sBT, int lBT, int pC = 0);
 
 		int GetSessionTime() { return SessionTime; }
 		int GetSessionsNum() { return SessionsNum; }
