@@ -6,7 +6,6 @@
 	#include <wx/wx.h>
 #endif
 
-#include <wx/log.h> 
 #include <wx/datetime.h>
 
 class Timer : public wxStaticText
@@ -42,9 +41,18 @@ class Timer : public wxStaticText
 		void OnUpdateDisplayedTime(wxTimerEvent&);
 		void UpdateDisplayedTime();
 		void SetSessionTime(int min) { SessionTime = min; }
+		void SetSessionsNum(int num) { SessionsNum = num; }
+		void SetShortBreakTime(int min) { ShortBreakTime = min; }
+		void SetLongBreakTime(int min) { LongBreakTime = min; }
+		void SetPomodoroCount(int num) { PomodoroCount = num; }
 		void SetupFont();
+		void ChangeState(PomodoroState pomostate, int Time);
 
 		int GetSessionTime() { return SessionTime; }
+		int GetSessionsNum() { return SessionsNum; }
+		int GetShortBreakTime() { return ShortBreakTime; }
+		int GetLongBreakTime() { return LongBreakTime; }
+		int GetPomodoroCount() { return PomodoroCount; }
 		wxTimer& getTimer() { return m_Timer; }
 		std::string SessionTimeToStr(int min);
 };

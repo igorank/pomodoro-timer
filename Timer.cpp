@@ -8,9 +8,9 @@ Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticT
 	SetupFont();
 	PomodoroCount = 0;
 	SetSessionTime(1);
-	ShortBreakTime = 2;
-	LongBreakTime = 3;
-	SessionsNum = 2;
+	SetShortBreakTime(2);
+	SetLongBreakTime(3);
+	SetSessionsNum(2);
 	UpdateDisplayedTime();
 	m_Timer.Bind(wxEVT_TIMER, &Timer::OnUpdateDisplayedTime, this);
 }
@@ -48,69 +48,77 @@ void Timer::UpdateDisplayedTime()
 		currentTime = wxDateTime::Now();
 		if (state == INIT || state == STOPPED)
 		{
-			pomodoroSession = wxTimeSpan::Minutes(GetSessionTime());
-			if (pomodorostate == SHORT_BREAK)
-				pomodoroSession = wxTimeSpan::Minutes(ShortBreakTime);
-			if (pomodorostate == POMODORO)
+			switch (pomodorostate)
+			{
+			case POMODORO:
 				pomodoroSession = wxTimeSpan::Minutes(GetSessionTime());
-			if (pomodorostate == LONG_BREAK)
-				pomodoroSession = wxTimeSpan::Minutes(LongBreakTime);
+				break;
+			case SHORT_BREAK:
+				pomodoroSession = wxTimeSpan::Minutes(GetShortBreakTime());
+				break;
+			case LONG_BREAK:
+				pomodoroSession = wxTimeSpan::Minutes(GetLongBreakTime());
+				break;
+			default:
+				pomodoroSession = wxTimeSpan::Minutes(GetSessionTime());
+				break;
+			}
 		}
 		else if (state == PAUSED)
 			pomodoroSession = paused_time;
 		ellapsedTime = (((currentTime - StartTime) - pomodoroSession) * -1);
 		if (ellapsedTime >= 0)
 			this->SetLabel(ellapsedTime.Format("%M:%S"));
-		else if (ellapsedTime < 0 && pomodorostate == POMODORO && PomodoroCount == (SessionsNum-1))
+		else 
 		{
-			pomodorostate = LONG_BREAK;
-			PomodoroCount = 0;
-			m_Timer.Stop();
-			state = STOPPED;
-			pomodoroSession = wxTimeSpan::Minutes(LongBreakTime);
-			this->SetLabel(SessionTimeToStr(LongBreakTime));
+			switch (pomodorostate)
+			{
+			case Timer::POMODORO:
+			{
+				if (PomodoroCount == (GetSessionsNum() - 1))
+				{
+					PomodoroCount = 0;
+					ChangeState(LONG_BREAK, GetLongBreakTime());
+				}
+				else
+				{
+					PomodoroCount++;
+					ChangeState(SHORT_BREAK, GetShortBreakTime());
+				}
+			}
+				break;
+			case Timer::SHORT_BREAK:
+			{
+				ChangeState(POMODORO, GetSessionTime());
+			}
+				break;
+			case Timer::LONG_BREAK:
+			{
+				ChangeState(POMODORO, GetSessionTime());
+			}
+				break;
+			default:
+				break;
+			}
 		}
-		else if (ellapsedTime < 0 && pomodorostate == POMODORO)
+	}
+	else 
+	{
+		switch (pomodorostate)
 		{
-			pomodorostate = SHORT_BREAK;
-			PomodoroCount++;
-			m_Timer.Stop();
-			state = STOPPED;
-			pomodoroSession = wxTimeSpan::Minutes(ShortBreakTime);
-			this->SetLabel(SessionTimeToStr(ShortBreakTime));
-		}
-		else if (ellapsedTime < 0 && pomodorostate == SHORT_BREAK)
-		{
-			pomodorostate = POMODORO;
-			m_Timer.Stop();
-			state = STOPPED;
-			pomodoroSession = wxTimeSpan::Minutes(GetSessionTime());
+		case Timer::POMODORO:
 			this->SetLabel(SessionTimeToStr(GetSessionTime()));
-		}
-		else if (ellapsedTime < 0 && pomodorostate == LONG_BREAK)
-		{
-			pomodorostate = POMODORO;
-			m_Timer.Stop();
-			state = STOPPED;
-			pomodoroSession = wxTimeSpan::Minutes(GetSessionTime());
+			break;
+		case Timer::SHORT_BREAK:
+			this->SetLabel(SessionTimeToStr(GetShortBreakTime()));
+			break;
+		case Timer::LONG_BREAK:
+			this->SetLabel(SessionTimeToStr(GetLongBreakTime()));
+			break;
+		default:
 			this->SetLabel(SessionTimeToStr(GetSessionTime()));
+			break;
 		}
-	}
-	else if (pomodorostate == SHORT_BREAK)
-	{
-		this->SetLabel(SessionTimeToStr(ShortBreakTime));
-	}
-	else if (pomodorostate == POMODORO)
-	{
-		this->SetLabel(SessionTimeToStr(GetSessionTime()));
-	}
-	else if (pomodorostate == LONG_BREAK)
-	{
-		this->SetLabel(SessionTimeToStr(LongBreakTime));
-	}
-	else
-	{
-		this->SetLabel(SessionTimeToStr(GetSessionTime()));
 	}
 }
 
@@ -119,6 +127,15 @@ void Timer::SetupFont()
 	font = this->GetFont();
 	font.MakeBold().MakeLarger();
 	this->SetFont(font);
+}
+
+void Timer::ChangeState(PomodoroState pomostate, int Time)
+{
+	pomodorostate = pomostate;
+	m_Timer.Stop();
+	state = STOPPED;
+	pomodoroSession = wxTimeSpan::Minutes(Time);
+	this->SetLabel(SessionTimeToStr(Time));
 }
 
 std::string Timer::SessionTimeToStr(int min)
