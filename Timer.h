@@ -6,13 +6,17 @@
 	#include <wx/wx.h>
 #endif
 
+#include <wx/log.h> 
 #include <wx/datetime.h>
 
 class Timer : public wxStaticText
 {
 	private:
-		enum STATE { INIT, PAUSED, STOPPED};
+		enum STATE {INIT, PAUSED, STOPPED};
 		STATE state;
+
+		enum PomodoroState {POMODORO,SHORT_BREAK,LONG_BREAK};
+		PomodoroState pomodorostate;
 
 		wxTimer m_Timer;
 		wxDateTime StartTime;
@@ -25,9 +29,10 @@ class Timer : public wxStaticText
 		wxFont font;
 
 		int SessionTime;
-		int ShortBreaksNum;
+		int SessionsNum;
 		int ShortBreakTime;
-		bool IsSessionDone;
+		int LongBreakTime;
+		int PomodoroCount;
 	public:
 		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
 

@@ -19,6 +19,8 @@ void StartButton::Clicked(wxCommandEvent& WXUNUSED)
 		frame->timer->StartTimer(WXUNUSED);
 	}
 	else
+	{
 		frame->timer->StartTimer(WXUNUSED);
 		this->SetLabel(wxString("Reset"));
+	}
 }

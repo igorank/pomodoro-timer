@@ -8,14 +8,14 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 
 	parent = new wxPanel(this, wxID_ANY);
 	
-	timer = new Timer(parent, wxID_ANY, "test");
+	timer = new Timer(parent, wxID_ANY, "Timer");
 
 	wxSizer* top_sizer = new wxBoxSizer(wxVERTICAL);
 	wxSizer* buttons_sizer = new wxBoxSizer(wxHORIZONTAL);
 
 	buttons_sizer->AddStretchSpacer();
 
-	startbutton = new StartButton(parent, wxID_OK, "Start");
+	startbutton = new StartButton(parent, wxID_ANY, "Start");
 	stopbutton = new StopButton(parent, wxID_ANY, "Stop");
 	pausebutton = new PauseButton(parent, wxID_ANY, "Pause");
 
