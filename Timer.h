@@ -7,6 +7,7 @@
 #endif
 
 #include <wx/datetime.h>
+#include "Notification.h"
 
 class Timer : public wxStaticText
 {
@@ -34,6 +35,9 @@ class Timer : public wxStaticText
 		int LongBreakTime;
 		int PomodoroCount;
 	public:
+
+		Notification* msg;
+
 		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
 
 		void SetupFont();

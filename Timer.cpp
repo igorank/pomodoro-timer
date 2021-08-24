@@ -5,6 +5,7 @@ Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticT
 	wxALIGN_CENTRE_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxST_NO_AUTORESIZE | wxBORDER_SIMPLE)
 {
 	m_parent = parent;
+	msg = new Notification(parent);
 	timerstate = INIT; pomodorostate = POMODORO;
 	SetupFont();
 	SetSettings(2, 1, 2, 3);
@@ -75,22 +76,26 @@ void Timer::UpdateDisplayedTime()
 				if (PomodoroCount == (GetSessionsNum() - 1))
 				{
 					PomodoroCount = 0;
+					msg->ShowPomodoroSessionEndLMsg();
 					ChangeState(LONG_BREAK, GetLongBreakTime());
 				}
 				else
 				{
 					PomodoroCount++;
+					msg->ShowPomodoroSessionEndSMsg();
 					ChangeState(SHORT_BREAK, GetShortBreakTime());
 				}
 			}
 				break;
 			case Timer::SHORT_BREAK:
 			{
+				msg->StartFocusingMsg();
 				ChangeState(POMODORO, GetSessionTime());
 			}
 				break;
 			case Timer::LONG_BREAK:
 			{
+				msg->EndedPomodoroSessionMsg();
 				ChangeState(POMODORO, GetSessionTime());
 			}
 				break;
