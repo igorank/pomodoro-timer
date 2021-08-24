@@ -1,11 +1,11 @@
 #include "Timer.h"
-
+#include "Frame.h"
 
 Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticText(parent, id, label, wxDefaultPosition, wxDefaultSize,
 	wxALIGN_CENTRE_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxST_NO_AUTORESIZE | wxBORDER_SIMPLE)
 {
-	timerstate = INIT;	
-	pomodorostate = POMODORO;
+	m_parent = parent;
+	timerstate = INIT; pomodorostate = POMODORO;
 	SetupFont();
 	SetSettings(2, 1, 2, 3);
 	UpdateDisplayedTime();
@@ -131,6 +131,8 @@ void Timer::ChangeState(PomodoroState pomostate, int Time)
 	pomodorostate = pomostate;
 	m_Timer.Stop();
 	timerstate = STOPPED;
+	Frame* frame = (Frame*)m_parent->GetParent();
+	frame->startbutton->SetLabel("Start");
 	pomodoroSession = wxTimeSpan::Minutes(Time);
 	this->SetLabel(SessionTimeToStr(Time));
 }

@@ -26,6 +26,7 @@ class Timer : public wxStaticText
 		wxTimeSpan paused_time;
 
 		wxFont font;
+		wxWindow* m_parent;
 
 		int SessionsNum;
 		int SessionTime;
