@@ -10,7 +10,7 @@ PauseButton::PauseButton(wxPanel* panel, wxStandardID ID, const char* title) : w
 void PauseButton::Clicked(wxCommandEvent& WXUNUSED)
 {
 	Frame* frame = (Frame*)m_parent->GetParent();
-	if (frame->startbutton->Was_Clicked_At_Least_Once())
+	if (frame->startbutton->Was_Clicked_At_Least_Once() && frame->timer->getTimer().IsRunning())
 	{
 		frame->timer->PauseTimer(WXUNUSED);
 		frame->startbutton->SetLabel("Continue");
