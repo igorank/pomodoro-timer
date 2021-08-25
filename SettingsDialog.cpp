@@ -20,17 +20,19 @@ SettingsDialog::SettingsDialog(const wxString& title) :
 	wxStaticText* PomToLongBreak = new wxStaticText(this, wxID_ANY, wxT("Pomodoros to a long break:"),
 		wxPoint(25, 183));
 
-	wxSlider* SessionTimeSlider = new wxSlider(panel, 100, GetSessionTime(), 5, 55,
+	SessionTimeSlider = new wxSlider(panel, 100, GetSessionTime(), 5, 55,
 		wxPoint(100, 30), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
-	wxSlider* ShortBreakSlider = new wxSlider(panel, 101, GetShortBreakTime(), 1, 30,
+	ShortBreakSlider = new wxSlider(panel, 101, GetShortBreakTime(), 1, 30,
 		wxPoint(100, 80), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
-	wxSlider* LongBreakSlider = new wxSlider(panel, 102, GetLongBreakTime(), 5, 55,
+	LongBreakSlider = new wxSlider(panel, 102, GetLongBreakTime(), 5, 55,
 		wxPoint(100, 130), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
-	wxSpinCtrl* PomToLongSpinCtrl = new wxSpinCtrl(panel, wxID_ANY, GetPomToLongBreakChar(), wxPoint(180, 180), wxDefaultSize,
+	PomToLongSpinCtrl = new wxSpinCtrl(panel, wxID_ANY, GetPomToLongBreakChar(), wxPoint(180, 180), wxDefaultSize,
 		wxSP_ARROW_KEYS, 1, 8, GetPomToLongBreak());
 
-	wxButton* okButton = new wxButton(this, -1, wxT("Ok"),
+	wxButton* okButton = new wxButton(this, 11, wxT("Ok"),
 		wxDefaultPosition, wxSize(70, 30));
+
+	Connect(11, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(SettingsDialog::onOkButton));
 
 	hbox->Add(okButton, 1);
 
@@ -46,22 +48,42 @@ SettingsDialog::SettingsDialog(const wxString& title) :
 	Destroy();
 }
 
+void SettingsDialog::onOkButton(wxCommandEvent& WXUNUSED)
+{
+	SaveConfFile();
+	Close(true);
+	//Destroy();
+}
+
 void SettingsDialog::OpenConfFile(const char* name)
 {
-	file.open(name);
+	rfile.open(name);
 }
 
 void SettingsDialog::CloseConfFile()
 {
-	file.close();
+	rfile.close();
 }
 
 void SettingsDialog::ReadConfFile()
 {
-	file >> PomodoroSessionTime;
-	file >> ShortBreakTime;
-	file >> LongBreakTime;
-	file >> PomToLongBreak;
+	rfile >> PomodoroSessionTime;
+	rfile >> ShortBreakTime;
+	rfile >> LongBreakTime;
+	rfile >> PomToLongBreak;
+}
+
+void SettingsDialog::SaveConfFile()
+{
+	wfile.open("data\\config.cfg");
+	wfile << SessionTimeSlider->GetValue();
+	wfile << ' ';
+	wfile << ShortBreakSlider->GetValue();
+	wfile << ' ';
+	wfile << LongBreakSlider->GetValue();
+	wfile << ' ';
+	wfile << PomToLongSpinCtrl->GetValue();
+	wfile.close();
 }
 
 char SettingsDialog::GetPomToLongBreakChar()

@@ -13,7 +13,13 @@
 class SettingsDialog : public wxDialog
 {
 	private:
-		std::ifstream file;
+		wxSlider* SessionTimeSlider;
+		wxSlider* ShortBreakSlider;
+		wxSlider* LongBreakSlider;
+		wxSpinCtrl* PomToLongSpinCtrl;
+
+		std::ifstream rfile;
+		std::ofstream wfile;
 		char filename[50];
 
 		int PomodoroSessionTime;
@@ -26,6 +32,7 @@ class SettingsDialog : public wxDialog
 		void OpenConfFile(const char* name);
 		void CloseConfFile();
 		void ReadConfFile();
+		void SaveConfFile();
 
 		int GetSessionTime() { return PomodoroSessionTime; }
 		int GetShortBreakTime() { return ShortBreakTime; }
@@ -33,6 +40,8 @@ class SettingsDialog : public wxDialog
 		int GetPomToLongBreak() { return PomToLongBreak; }
 
 		char GetPomToLongBreakChar();
+
+		void onOkButton(wxCommandEvent& WXUNUSED);
 };
 
 #endif
