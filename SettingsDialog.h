@@ -6,6 +6,9 @@
 #include <wx/wx.h>
 #endif
 
+#include <wx/spinctrl.h>
+
+
 class SettingsDialog : public wxDialog
 {
 	public:
