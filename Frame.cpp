@@ -1,5 +1,16 @@
 #include "Frame.h"
 
+enum
+{
+	ID_Settings = 1
+};
+
+wxBEGIN_EVENT_TABLE(Frame, wxFrame)
+	EVT_MENU(ID_Settings, Frame::OnSettings)
+	EVT_MENU(wxID_ABOUT, Frame::OnAbout)
+	EVT_MENU(wxID_EXIT, Frame::OnExit)
+wxEND_EVENT_TABLE()
+
 Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition,
 	wxSize(width, height), wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX))
 {
@@ -7,6 +18,19 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 	SetIcon(wxIcon("data\\icon.ico", wxBITMAP_TYPE_ICO));
 
 	parent = new wxPanel(this, wxID_ANY);
+
+	wxMenuBar* menuBar = new wxMenuBar;
+	wxMenu* menuOptions = new wxMenu;
+	menuOptions->Append(ID_Settings, "&Settings\tCtrl-S",
+		"string");
+	menuOptions->AppendSeparator();
+	menuOptions->Append(wxID_EXIT);
+
+	wxMenu* menuHelp = new wxMenu;
+	menuHelp->Append(wxID_ABOUT);
+
+	menuBar->Append(menuOptions, "&Options");
+	menuBar->Append(menuHelp, "&Help");
 	
 	timer = new Timer(parent, wxID_ANY, "Timer");
 
@@ -30,4 +54,25 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 	top_sizer->Add(buttons_sizer, wxSizerFlags(0).Center());
 
 	parent->SetSizerAndFit(top_sizer);
+
+	SetMenuBar(menuBar);
+
+	CreateStatusBar();
+	SetStatusText("Pomodoros today:");
+}
+
+void Frame::OnSettings(wxCommandEvent& event)
+{
+	settingsdlg = new SettingsDialog("Settings");
+}
+
+void Frame::OnAbout(wxCommandEvent& event)
+{
+	wxMessageBox("",
+		"About Pomodoro", wxOK | wxICON_INFORMATION);
+}
+
+void Frame::OnExit(wxCommandEvent& event)
+{
+	Close(true);
 }
