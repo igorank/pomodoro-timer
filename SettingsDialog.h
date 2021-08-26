@@ -18,6 +18,7 @@ class SettingsDialog : public wxDialog
 		wxSlider* LongBreakSlider;
 		wxSpinCtrl* PomToLongSpinCtrl;
 
+		wxPanel* panel;
 		wxPanel* m_parent;
 
 		std::ifstream rfile;
@@ -44,6 +45,7 @@ class SettingsDialog : public wxDialog
 		char GetPomToLongBreakChar();
 
 		void onOkButton(wxCommandEvent& WXUNUSED);
+		bool Was_SettingChanged();
 };
 
 #endif

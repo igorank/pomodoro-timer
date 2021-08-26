@@ -4,8 +4,7 @@
 SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
 	wxDialog(nullptr, 1, title, wxDefaultPosition, wxSize(350, 330))
 {
-	wxPanel* panel = new wxPanel(this, 1);
-
+	panel = new wxPanel(this, 1);
 	m_parent = ptr;
 
 	OpenConfFile("data\\config.cfg");
@@ -53,12 +52,42 @@ SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
 
 void SettingsDialog::onOkButton(wxCommandEvent& WXUNUSED)
 {
-	SaveConfFile();
 	Frame* frame = (Frame*)m_parent->GetParent();
-	frame->timer->GetSettings("data\\config.cfg");
-	frame->timer->SetTimerLabel();
-	Close(true);
-	//Destroy();
+	if (frame->timer->getTimer().IsRunning() && Was_SettingChanged())
+	{
+		wxMessageDialog * WarningMsg = new wxMessageDialog(panel, wxString("Error"),wxString("Warning"), wxYES_NO| wxCENTRE);
+		if (WarningMsg->ShowModal() == wxID_YES)
+		{
+			SaveConfFile();
+			frame->timer->StopTimer(WXUNUSED);
+			frame->timer->GetSettings("data\\config.cfg");
+			frame->timer->SetTimerLabel();
+			frame->startbutton->SetLabel(wxString("Start"));
+			Close(true);
+		}
+		else
+			WarningMsg->Close();
+	}
+	else
+	{
+		SaveConfFile();
+		if (Was_SettingChanged())
+		{
+			frame->timer->GetSettings("data\\config.cfg");
+			frame->timer->SetTimerLabel();
+		}
+		Close(true);
+	}
+}
+
+bool SettingsDialog::Was_SettingChanged()
+{
+	Frame* frame = (Frame*)m_parent->GetParent();
+	if (frame->timer->GetSessionTime() != SessionTimeSlider->GetValue() || frame->timer->GetShortBreakTime() != ShortBreakSlider->GetValue() ||
+		frame->timer->GetLongBreakTime() != LongBreakSlider->GetValue() || frame->timer->GetSessionsNum() != PomToLongSpinCtrl->GetValue())
+		return true;
+	else
+		return false;
 }
 
 void SettingsDialog::OpenConfFile(const char* name)
