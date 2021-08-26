@@ -1,3 +1,6 @@
+#ifdef __WXMSW__
+	#include <wx/msw/msvcrt.h>
+#endif
 #include "PauseButton.h"
 #include "Frame.h"
 

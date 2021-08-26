@@ -1,3 +1,6 @@
+#ifdef __WXMSW__
+	#include <wx/msw/msvcrt.h>
+#endif
 #include "SettingsDialog.h"
 #include "Frame.h"
 
@@ -55,7 +58,8 @@ void SettingsDialog::onOkButton(wxCommandEvent& WXUNUSED)
 	Frame* frame = (Frame*)m_parent->GetParent();
 	if (frame->timer->getTimer().IsRunning() && Was_SettingChanged() || frame->timer->IsTimerPaused())
 	{
-		wxMessageDialog * WarningMsg = new wxMessageDialog(panel, wxString("The settings were changed after the timer had already started. Changing the settings will restart the timer. Would you like to continue?"),wxString("Warning"), wxYES_NO| wxCENTRE);
+		//wxMessageDialog * WarningMsg = new wxMessageDialog(panel, wxString("The settings were changed after the timer had already started. Changing the settings will restart the timer. Would you like to continue?"),wxString("Warning"), wxYES_NO| wxCENTRE);
+		std::unique_ptr<wxMessageDialog> WarningMsg(new wxMessageDialog(panel, wxString("The settings were changed after the timer had already started. Changing the settings will restart the timer. Would you like to continue?"), wxString("Warning"), wxYES_NO | wxCENTRE));
 		wxMessageDialog::ButtonLabel YesLabel(wxString("Yes"));
 		wxMessageDialog::ButtonLabel NoLabel(wxString("No"));
 		WarningMsg->SetYesNoLabels(YesLabel, NoLabel);

@@ -1,3 +1,6 @@
+#ifdef __WXMSW__
+	#include <wx/msw/msvcrt.h>
+#endif
 #include "Notification.h"
 
 Notification::Notification(wxWindow* parent) : wxNotificationMessage(wxString("Pomodoro"), wxEmptyString, parent)

@@ -1,3 +1,6 @@
+#ifdef __WXMSW__
+	#include <wx/msw/msvcrt.h>
+#endif
 #include "Timer.h"
 #include "Frame.h"
 
@@ -6,12 +9,18 @@ Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticT
 {
 	m_parent = parent;
 	msg = new Notification(parent);
+	//std::unique_ptr<Notification> msg(new Notification(parent));
 	timerstate = INIT; pomodorostate = POMODORO;
 	SetupFont();
 	//SetSettings(2, 1, 2, 3);
 	GetSettings("data\\config.cfg");
 	UpdateDisplayedTime();
 	m_Timer.Bind(wxEVT_TIMER, &Timer::OnUpdateDisplayedTime, this);
+}
+
+Timer::~Timer()
+{
+	delete msg;
 }
 
 void Timer::StartTimer(wxCommandEvent&)

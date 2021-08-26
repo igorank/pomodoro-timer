@@ -42,6 +42,7 @@ class Timer : public wxStaticText
 		Notification* msg;
 
 		Timer(wxWindow* parent, wxWindowID id, const wxString& label);
+		~Timer();
 
 		void SetupFont();
 		void UpdateDisplayedTime();
