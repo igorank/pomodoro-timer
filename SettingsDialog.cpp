@@ -32,7 +32,7 @@ SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
 		wxSP_ARROW_KEYS, 1, 8, GetPomToLongBreak());
 
 	wxButton* okButton = new wxButton(this, 11, wxT("Ok"),
-		wxDefaultPosition, wxSize(70, 30));
+		wxDefaultPosition);
 
 	Connect(11, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(SettingsDialog::onOkButton));
 
