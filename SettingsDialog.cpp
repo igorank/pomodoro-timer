@@ -1,9 +1,12 @@
 #include "SettingsDialog.h"
+#include "Frame.h"
 
-SettingsDialog::SettingsDialog(const wxString& title) :
+SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
 	wxDialog(nullptr, 1, title, wxDefaultPosition, wxSize(350, 330))
 {
 	wxPanel* panel = new wxPanel(this, 1);
+
+	m_parent = ptr;
 
 	OpenConfFile("data\\config.cfg");
 	ReadConfFile();
@@ -51,6 +54,9 @@ SettingsDialog::SettingsDialog(const wxString& title) :
 void SettingsDialog::onOkButton(wxCommandEvent& WXUNUSED)
 {
 	SaveConfFile();
+	Frame* frame = (Frame*)m_parent->GetParent();
+	frame->timer->GetSettings("data\\config.cfg");
+	frame->timer->SetTimerLabel();
 	Close(true);
 	//Destroy();
 }

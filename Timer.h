@@ -7,6 +7,7 @@
 #endif
 
 #include <wx/datetime.h>
+#include <fstream>
 #include "Notification.h"
 
 class Timer : public wxStaticText
@@ -29,6 +30,8 @@ class Timer : public wxStaticText
 		wxFont font;
 		wxWindow* m_parent;
 
+		std::ifstream file;
+
 		int SessionsNum;
 		int SessionTime;
 		int ShortBreakTime;
@@ -42,6 +45,7 @@ class Timer : public wxStaticText
 
 		void SetupFont();
 		void UpdateDisplayedTime();
+		void SetTimerLabel();
 		void StartTimer(wxCommandEvent&);
 		void StopTimer(wxCommandEvent&);
 		void PauseTimer(wxCommandEvent&);
@@ -53,6 +57,7 @@ class Timer : public wxStaticText
 		void SetPomodoroCount(int num) { PomodoroCount = num; }
 		void ChangeState(PomodoroState pomostate, int Time);
 		void SetSettings(int sN, int sT, int sBT, int lBT, int pC = 0);
+		void GetSettings(const char* name);
 
 		int GetSessionTime() { return SessionTime; }
 		int GetSessionsNum() { return SessionsNum; }

@@ -18,6 +18,8 @@ class SettingsDialog : public wxDialog
 		wxSlider* LongBreakSlider;
 		wxSpinCtrl* PomToLongSpinCtrl;
 
+		wxPanel* m_parent;
+
 		std::ifstream rfile;
 		std::ofstream wfile;
 		char filename[50];
@@ -28,7 +30,7 @@ class SettingsDialog : public wxDialog
 		int PomToLongBreak;
 		char PomToLongBreakChar;
 	public:
-		SettingsDialog(const wxString& title);
+		SettingsDialog(const wxString& title, wxPanel* ptr);
 		void OpenConfFile(const char* name);
 		void CloseConfFile();
 		void ReadConfFile();

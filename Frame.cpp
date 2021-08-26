@@ -63,7 +63,7 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 
 void Frame::OnSettings(wxCommandEvent& event)
 {
-	settingsdlg = new SettingsDialog("Settings");
+	settingsdlg = new SettingsDialog("Settings", parent);
 }
 
 void Frame::OnAbout(wxCommandEvent& event)

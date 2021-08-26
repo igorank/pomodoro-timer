@@ -8,7 +8,8 @@ Timer::Timer(wxWindow* parent, wxWindowID id, const wxString& label) : wxStaticT
 	msg = new Notification(parent);
 	timerstate = INIT; pomodorostate = POMODORO;
 	SetupFont();
-	SetSettings(2, 1, 2, 3);
+	//SetSettings(2, 1, 2, 3);
+	GetSettings("data\\config.cfg");
 	UpdateDisplayedTime();
 	m_Timer.Bind(wxEVT_TIMER, &Timer::OnUpdateDisplayedTime, this);
 }
@@ -106,21 +107,26 @@ void Timer::UpdateDisplayedTime()
 	}
 	else 
 	{
-		switch (pomodorostate)
-		{
-		case Timer::POMODORO:
-			this->SetLabel(SessionTimeToStr(GetSessionTime()));
-			break;
-		case Timer::SHORT_BREAK:
-			this->SetLabel(SessionTimeToStr(GetShortBreakTime()));
-			break;
-		case Timer::LONG_BREAK:
-			this->SetLabel(SessionTimeToStr(GetLongBreakTime()));
-			break;
-		default:
-			this->SetLabel(SessionTimeToStr(GetSessionTime()));
-			break;
-		}
+		SetTimerLabel();
+	}
+}
+
+void Timer::SetTimerLabel()
+{
+	switch (pomodorostate)
+	{
+	case Timer::POMODORO:
+		this->SetLabel(SessionTimeToStr(GetSessionTime()));
+		break;
+	case Timer::SHORT_BREAK:
+		this->SetLabel(SessionTimeToStr(GetShortBreakTime()));
+		break;
+	case Timer::LONG_BREAK:
+		this->SetLabel(SessionTimeToStr(GetLongBreakTime()));
+		break;
+	default:
+		this->SetLabel(SessionTimeToStr(GetSessionTime()));
+		break;
 	}
 }
 
@@ -149,6 +155,17 @@ void Timer::SetSettings(int sN, int sT, int sBT, int lBT, int pC)
 	SetShortBreakTime(sBT);
 	SetLongBreakTime(lBT);
 	SetPomodoroCount(pC);
+}
+
+void Timer::GetSettings(const char* name)
+{
+	file.open(name);
+	file >> SessionTime;
+	file >> ShortBreakTime;
+	file >> LongBreakTime;
+	file >> SessionsNum;
+	file.close();
+	
 }
 
 std::string Timer::SessionTimeToStr(int min)
