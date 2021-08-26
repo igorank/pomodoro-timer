@@ -13,6 +13,7 @@
 class SettingsDialog : public wxDialog
 {
 	private:
+
 		wxSlider* SessionTimeSlider;
 		wxSlider* ShortBreakSlider;
 		wxSlider* LongBreakSlider;

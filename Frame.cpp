@@ -57,8 +57,8 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 
 	SetMenuBar(menuBar);
 
-	CreateStatusBar();
-	SetStatusText("Pomodoros today:");
+	//CreateStatusBar();
+	//SetStatusText("Pomodoros today:");
 }
 
 void Frame::OnSettings(wxCommandEvent& event)
@@ -68,7 +68,7 @@ void Frame::OnSettings(wxCommandEvent& event)
 
 void Frame::OnAbout(wxCommandEvent& event)
 {
-	wxMessageBox("",
+	wxMessageBox("Pomodoro is a customizable pomodoro timer that works on desktop. The aim of this app is to help you focus on any task you are working on, such as study, writing, or coding. This app is inspired by Pomodoro Technique which is a time management method developed by Francesco Cirillo.\n\t\nOnline documentation: https://github.com/igorank/PomodoroTimer \n© 2021 anikinigor165@gmail.com\nAll rights reserved.",
 		"About Pomodoro", wxOK | wxICON_INFORMATION);
 }
 

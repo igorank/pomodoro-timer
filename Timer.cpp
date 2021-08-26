@@ -168,6 +168,14 @@ void Timer::GetSettings(const char* name)
 	
 }
 
+bool Timer::IsTimerPaused()
+{
+	if (timerstate == PAUSED)
+		return true;
+	else
+		return false;
+}
+
 std::string Timer::SessionTimeToStr(int min)
 {
 	std::string strlabel = std::to_string(min);

@@ -53,9 +53,12 @@ SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
 void SettingsDialog::onOkButton(wxCommandEvent& WXUNUSED)
 {
 	Frame* frame = (Frame*)m_parent->GetParent();
-	if (frame->timer->getTimer().IsRunning() && Was_SettingChanged())
+	if (frame->timer->getTimer().IsRunning() && Was_SettingChanged() || frame->timer->IsTimerPaused())
 	{
-		wxMessageDialog * WarningMsg = new wxMessageDialog(panel, wxString("Error"),wxString("Warning"), wxYES_NO| wxCENTRE);
+		wxMessageDialog * WarningMsg = new wxMessageDialog(panel, wxString("The settings were changed after the timer had already started. Changing the settings will restart the timer. Would you like to continue?"),wxString("Warning"), wxYES_NO| wxCENTRE);
+		wxMessageDialog::ButtonLabel YesLabel(wxString("Yes"));
+		wxMessageDialog::ButtonLabel NoLabel(wxString("No"));
+		WarningMsg->SetYesNoLabels(YesLabel, NoLabel);
 		if (WarningMsg->ShowModal() == wxID_YES)
 		{
 			SaveConfFile();

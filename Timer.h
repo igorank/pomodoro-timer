@@ -64,6 +64,7 @@ class Timer : public wxStaticText
 		int GetShortBreakTime() { return ShortBreakTime; }
 		int GetLongBreakTime() { return LongBreakTime; }
 		int GetPomodoroCount() { return PomodoroCount; }
+		bool IsTimerPaused();
 		wxTimer& getTimer() { return m_Timer; }
 		std::string SessionTimeToStr(int min);
 };

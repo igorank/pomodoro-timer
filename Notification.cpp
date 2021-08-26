@@ -14,21 +14,21 @@ Notification::Notification(const char* title, const char* message, wxWindow* par
 void Notification::ShowPomodoroSessionEndSMsg()
 {
 	//SetTitle(wxString("Pomodoro"));
-	SetMessage(wxString("Take a Short Break"));
+	SetMessage(wxString("Take a short break"));
 	Show();
 }
 
 void Notification::ShowPomodoroSessionEndLMsg()
 {
 	//SetTitle(wxString("Pomodoro"));
-	SetMessage(wxString("Take a Long Break"));
+	SetMessage(wxString("Take a long break"));
 	Show();
 }
 
 void Notification::StartFocusingMsg()
 {
 	//SetTitle(wxString("Pomodoro"));
-	SetMessage(wxString("Start Focusing"));
+	SetMessage(wxString("Time to work!"));
 	Show();
 }
 
