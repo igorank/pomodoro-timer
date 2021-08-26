@@ -6,7 +6,6 @@
 
 StartButton::StartButton(wxPanel* panel, wxStandardID ID, const char * title) : wxButton(panel, ID, wxString(title))
 {
-	_CrtSetBreakAlloc(9525);
 	m_parent = panel;
 	Connect(ID, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(StartButton::Clicked));
 	clicked_atl_once = false;
