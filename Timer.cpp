@@ -143,6 +143,7 @@ void Timer::SetupFont()
 {
 	font = this->GetFont();
 	font.MakeBold().MakeLarger();
+	font.Scale(2.2);
 	this->SetFont(font);
 }
 

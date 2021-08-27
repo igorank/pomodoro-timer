@@ -22,6 +22,10 @@ Frame::Frame(const wxString& title, int width, int height) : wxFrame(NULL, wxID_
 
 	parent = new wxPanel(this, wxID_ANY);
 
+	wxPNGHandler* handler = new wxPNGHandler;
+	wxImage::AddHandler(handler);
+	wxStaticBitmap* image = new wxStaticBitmap(parent, wxID_ANY, wxBitmap("data\\timer.png", wxBITMAP_TYPE_PNG),wxPoint(64,0));
+
 	wxMenuBar* menuBar = new wxMenuBar;
 	wxMenu* menuOptions = new wxMenu;
 	menuOptions->Append(ID_Settings, "&Settings\tCtrl-S",

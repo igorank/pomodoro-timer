@@ -17,6 +17,7 @@ Notification::Notification(const char* title, const char* message, wxWindow* par
 void Notification::ShowPomodoroSessionEndSMsg()
 {
 	//SetTitle(wxString("Pomodoro"));
+	this->SetIcon(wxIcon("data\\break.ico", wxBITMAP_TYPE_ICO));
 	SetMessage(wxString("Take a short break"));
 	Show();
 }
@@ -24,6 +25,7 @@ void Notification::ShowPomodoroSessionEndSMsg()
 void Notification::ShowPomodoroSessionEndLMsg()
 {
 	//SetTitle(wxString("Pomodoro"));
+	this->SetIcon(wxIcon("data\\break.ico", wxBITMAP_TYPE_ICO));
 	SetMessage(wxString("Take a long break"));
 	Show();
 }
@@ -31,6 +33,7 @@ void Notification::ShowPomodoroSessionEndLMsg()
 void Notification::StartFocusingMsg()
 {
 	//SetTitle(wxString("Pomodoro"));
+	this->SetIcon(wxIcon("data\\pomodoro.ico", wxBITMAP_TYPE_ICO));
 	SetMessage(wxString("Time to work!"));
 	Show();
 }
@@ -38,6 +41,7 @@ void Notification::StartFocusingMsg()
 void Notification::EndedPomodoroSessionMsg()
 {
 	//SetTitle(wxString("Pomodoro"));
+	this->SetIcon(wxIcon("data\\done.ico", wxBITMAP_TYPE_ICO));
 	SetMessage(wxString("Pomodoro session has been ended"));
 	Show();
 }
