@@ -146,6 +146,7 @@ void Timer::SetupFont()
 	font.Scale(2.2);
 	this->SetFont(font);
 	this->SetOwnBackgroundColour(wxColour(255, 98, 67, 255));
+	this->SetOwnForegroundColour(wxColour(64, 62, 55, 255));
 }
 
 void Timer::ChangeState(PomodoroState pomostate, int Time)
