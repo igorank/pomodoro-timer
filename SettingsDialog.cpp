@@ -5,7 +5,7 @@
 #include "Frame.h"
 
 SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
-	wxDialog(nullptr, 1, title, wxDefaultPosition, wxSize(350, 330))
+	wxDialog(nullptr, 1, title, wxDefaultPosition, wxSize(275, 330))
 {
 	panel = new wxPanel(this, 1);
 	m_parent = ptr;
@@ -16,23 +16,26 @@ SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
 	wxBoxSizer* vbox = new wxBoxSizer(wxVERTICAL);
 	wxBoxSizer* hbox = new wxBoxSizer(wxHORIZONTAL);
 
-	wxStaticText* Pomodoro = new wxStaticText(this, wxID_ANY, wxT("Pomodoro:"),
-		wxPoint(25, 33));
-	wxStaticText* ShortBreak = new wxStaticText(this, wxID_ANY, wxT("Short break:"),
-		wxPoint(25, 83));
-	wxStaticText* LongBreak = new wxStaticText(this, wxID_ANY, wxT("Long break:"),
-		wxPoint(25, 133));
-	wxStaticText* PomToLongBreak = new wxStaticText(this, wxID_ANY, wxT("Pomodoros to a long break:"),
-		wxPoint(25, 183));
+	wxStaticBox* box = new wxStaticBox(panel, wxID_ANY, "Timer",wxPoint(5,5),wxSize(250,210));
 
-	SessionTimeSlider = new wxSlider(panel, 100, GetSessionTime(), 5, 55,
-		wxPoint(100, 30), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
-	ShortBreakSlider = new wxSlider(panel, 101, GetShortBreakTime(), 1, 30,
-		wxPoint(100, 80), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
-	LongBreakSlider = new wxSlider(panel, 102, GetLongBreakTime(), 5, 55,
-		wxPoint(100, 130), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
-	PomToLongSpinCtrl = new wxSpinCtrl(panel, wxID_ANY, GetPomToLongBreakChar(), wxPoint(180, 180), wxDefaultSize,
+	wxStaticText* Pomodoro = new wxStaticText(box, wxID_ANY, wxT("Pomodoro:"),
+		wxPoint(10, 33));
+	wxStaticText* ShortBreak = new wxStaticText(box, wxID_ANY, wxT("Short break:"),
+		wxPoint(10, 83));
+	wxStaticText* LongBreak = new wxStaticText(box, wxID_ANY, wxT("Long break:"),
+		wxPoint(10, 133));
+	wxStaticText* PomToLongBreak = new wxStaticText(box, wxID_ANY, wxT("Pomodoros to a long break:"),
+		wxPoint(10, 183));
+
+	SessionTimeSlider = new wxSlider(box, 100, GetSessionTime(), 5, 55,
+		wxPoint(85, 30), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
+	ShortBreakSlider = new wxSlider(box, 101, GetShortBreakTime(), 1, 30,
+		wxPoint(85, 80), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
+	LongBreakSlider = new wxSlider(box, 102, GetLongBreakTime(), 5, 55,
+		wxPoint(85, 130), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
+	PomToLongSpinCtrl = new wxSpinCtrl(box, wxID_ANY, GetPomToLongBreakChar(), wxPoint(165, 180), wxDefaultSize,
 		wxSP_ARROW_KEYS, 1, 8, GetPomToLongBreak());
+	wxCheckBox* DisplayNotifications = new wxCheckBox(panel, 104, wxString("Display notifications"),wxPoint(10,225));
 
 	wxButton* okButton = new wxButton(this, 11, wxT("Ok"),
 		wxDefaultPosition);
