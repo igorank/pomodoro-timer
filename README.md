@@ -1,15 +1,15 @@
 # Pomodoro Timer
 A small application that helps managing time :tomato:.
 
-![main](https://i.imgur.com/xJjthN5.jpeg)
+![main](https://i.imgur.com/NBMDNhL.jpeg)
 
 It also supports visual notifications:
 
-![noti](https://i.imgur.com/SFHrei5.jpeg)
+![noti](https://i.imgur.com/YDNREI5.jpeg)
 
 And some degree of control:
 
-![settings](https://i.imgur.com/QxK4XCe.jpeg)
+![settings](https://i.imgur.com/aN4XKO7.jpeg)
 
 ## Building
 
