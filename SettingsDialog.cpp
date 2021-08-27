@@ -35,14 +35,19 @@ SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
 		wxPoint(85, 130), wxSize(140, -1), wxSL_LABELS | wxSL_TOP);
 	PomToLongSpinCtrl = new wxSpinCtrl(box, wxID_ANY, GetPomToLongBreakChar(), wxPoint(165, 180), wxDefaultSize,
 		wxSP_ARROW_KEYS, 1, 8, GetPomToLongBreak());
-	wxCheckBox* DisplayNotifications = new wxCheckBox(panel, 104, wxString("Display notifications"),wxPoint(10,225));
+	DisplayNotifications = new wxCheckBox(panel, 104, wxString("Display notifications"),wxPoint(10,225));
+	DisplayNotifications->SetValue(DisplayNotifi);
 
 	wxButton* okButton = new wxButton(this, 11, wxT("Ok"),
 		wxDefaultPosition);
+	wxButton* closeButton = new wxButton(this, 12, wxT("Close"),
+		wxDefaultPosition);
 
 	Connect(11, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(SettingsDialog::onOkButton));
+	Connect(12, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(SettingsDialog::onCloseButton));
 
 	hbox->Add(okButton, 1);
+	hbox->Add(closeButton, 1, wxLEFT, 5);
 
 	vbox->Add(panel, 1);
 	vbox->Add(hbox, 0, wxALIGN_CENTER | wxTOP | wxBOTTOM, 10);
@@ -59,7 +64,8 @@ SettingsDialog::SettingsDialog(const wxString& title, wxPanel* ptr) :
 void SettingsDialog::onOkButton(wxCommandEvent& WXUNUSED)
 {
 	Frame* frame = (Frame*)m_parent->GetParent();
-	if (frame->timer->getTimer().IsRunning() && Was_SettingChanged() || frame->timer->IsTimerPaused())
+	if (frame->timer->getTimer().IsRunning() && Was_SettingChanged() || (frame->timer->IsTimerPaused() && !frame->timer->getTimer().IsRunning()
+		&& Was_SettingChanged()))
 	{
 		//wxMessageDialog * WarningMsg = new wxMessageDialog(panel, wxString("The settings were changed after the timer had already started. Changing the settings will restart the timer. Would you like to continue?"),wxString("Warning"), wxYES_NO| wxCENTRE);
 		std::unique_ptr<wxMessageDialog> WarningMsg(new wxMessageDialog(panel, wxString("The settings were changed after the timer had already started. Changing the settings will restart the timer. Would you like to continue?"), wxString("Warning"), wxYES_NO | wxCENTRE));
@@ -90,11 +96,17 @@ void SettingsDialog::onOkButton(wxCommandEvent& WXUNUSED)
 	}
 }
 
+void SettingsDialog::onCloseButton(wxCommandEvent& WXUNUSED) 
+{
+	Close(true);
+}
+
 bool SettingsDialog::Was_SettingChanged()
 {
 	Frame* frame = (Frame*)m_parent->GetParent();
-	if (frame->timer->GetSessionTime() != SessionTimeSlider->GetValue() || frame->timer->GetShortBreakTime() != ShortBreakSlider->GetValue() ||
-		frame->timer->GetLongBreakTime() != LongBreakSlider->GetValue() || frame->timer->GetSessionsNum() != PomToLongSpinCtrl->GetValue())
+	if (PomodoroSessionTime != SessionTimeSlider->GetValue() || ShortBreakTime != ShortBreakSlider->GetValue() ||
+		LongBreakTime != LongBreakSlider->GetValue() || PomToLongBreak != PomToLongSpinCtrl->GetValue()
+		|| DisplayNotifi != DisplayNotifications->GetValue())
 		return true;
 	else
 		return false;
@@ -116,6 +128,7 @@ void SettingsDialog::ReadConfFile()
 	rfile >> ShortBreakTime;
 	rfile >> LongBreakTime;
 	rfile >> PomToLongBreak;
+	rfile >> DisplayNotifi;
 }
 
 void SettingsDialog::SaveConfFile()
@@ -128,6 +141,8 @@ void SettingsDialog::SaveConfFile()
 	wfile << LongBreakSlider->GetValue();
 	wfile << ' ';
 	wfile << PomToLongSpinCtrl->GetValue();
+	wfile << ' ';
+	wfile << DisplayNotifications->GetValue();
 	wfile.close();
 }
 

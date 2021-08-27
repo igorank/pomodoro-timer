@@ -18,6 +18,7 @@ class SettingsDialog : public wxDialog
 		wxSlider* ShortBreakSlider;
 		wxSlider* LongBreakSlider;
 		wxSpinCtrl* PomToLongSpinCtrl;
+		wxCheckBox* DisplayNotifications;
 
 		wxPanel* panel;
 		wxPanel* m_parent;
@@ -31,6 +32,7 @@ class SettingsDialog : public wxDialog
 		int LongBreakTime;
 		int PomToLongBreak;
 		char PomToLongBreakChar;
+		bool DisplayNotifi;
 	public:
 		SettingsDialog(const wxString& title, wxPanel* ptr);
 		void OpenConfFile(const char* name);
@@ -46,6 +48,7 @@ class SettingsDialog : public wxDialog
 		char GetPomToLongBreakChar();
 
 		void onOkButton(wxCommandEvent& WXUNUSED);
+		void onCloseButton(wxCommandEvent& WXUNUSED);
 		bool Was_SettingChanged();
 };
 

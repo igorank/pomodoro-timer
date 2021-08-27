@@ -6,10 +6,14 @@
 	#include <wx/wx.h>
 #endif
 
+#include <fstream>
 #include <wx/notifmsg.h>
 
 class Notification : public wxNotificationMessage
 {
+	private:
+		std::ifstream file;
+		bool ShowNotifi;
 	public:
 		Notification(wxWindow* parent);
 		Notification(const char* title, const char* message, wxWindow* parent = NULL);
@@ -18,6 +22,9 @@ class Notification : public wxNotificationMessage
 		void ShowPomodoroSessionEndLMsg();
 		void EndedPomodoroSessionMsg();
 		void StartFocusingMsg();
+		void ReadSettings();
+
+		bool GetShowNotifi() { return ShowNotifi; }
 };
 
 #endif
