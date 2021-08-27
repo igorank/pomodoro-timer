@@ -1,7 +1,7 @@
 # Pomodoro Timer
 A small application that helps managing time :tomato:.
 
-![main](https://i.imgur.com/NBMDNhL.jpeg)
+![main](https://i.imgur.com/6XWwORV.jpeg)
 
 It also supports visual notifications:
 
