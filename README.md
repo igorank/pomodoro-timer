@@ -46,45 +46,7 @@ To keep things simple, you just need any C++ compiler and at least wxWidgets 3.1
   * Select Configuration→C/C++→Preprocessor→Preprocessor Definitions and open its editor. Enter WXUSINGDLL, press Enter, and click on the OK button to close the editor.
 
 5. In the Property Pages dialog, click the Apply button and then the OK button.
-6. Modify MyProjectApp.h to contain:
-
-```
-#pragma once
-class MyProjectApp : public wxApp
-{
-public:
-    MyProjectApp();
-    virtual ~MyProjectApp();
-    virtual bool OnInit() override;
-};
-```
-
-7. Modify MyProjectApp.cpp to contain:
-
-```
-#include <wx/wx.h>
-#include "MyProjectApp.h"
-
-MyProjectApp::MyProjectApp()
-{
-}
-
-MyProjectApp::~MyProjectApp()
-{
-}
-
-bool MyProjectApp::OnInit()
-{
-	wxFrame* mainFrame = new wxFrame(nullptr, wxID_ANY, L"MyProject");
-	mainFrame->Show(true);
-	return true;
-}
-
-wxIMPLEMENT_APP(MyProjectApp);
-wxIMPLEMENT_WXWIN_MAIN_CONSOLE;
-```
-
-8. Build the program, and run it.
+6. Build the program, and run it.
 
 ## Todo
 
