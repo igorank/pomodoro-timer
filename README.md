@@ -84,9 +84,7 @@ wxIMPLEMENT_APP(MyProjectApp);
 wxIMPLEMENT_WXWIN_MAIN_CONSOLE;
 ```
 
-8. Build the program, and run it. The following window will display:
-
-![display](https://computingonplains.files.wordpress.com/2019/01/wxwidgetsmyproject.png)
+8. Build the program, and run it.
 
 ## Todo
 
