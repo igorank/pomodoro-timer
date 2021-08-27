@@ -14,3 +14,13 @@ And some degree of control:
 ## Building
 
 To keep things simple, you just need any C++ compiler and at least wxWidgets 3.1.5.
+
+## Todo
+
+Minimize to Tray
+
+## Licence
+
+MIT License. See ```LICENSE```.
+
+Copyright (c) 2021 Igor Anikin.
