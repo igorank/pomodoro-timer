@@ -24,7 +24,7 @@ class Notification : public wxNotificationMessage
 		void StartFocusingMsg();
 		void ReadSettings();
 
-		bool GetShowNotifi() { return ShowNotifi; }
+		bool& GetShowNotifi() { return ShowNotifi; }
 };
 
 #endif

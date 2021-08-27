@@ -145,6 +145,7 @@ void Timer::SetupFont()
 	font.MakeBold().MakeLarger();
 	font.Scale(2.2);
 	this->SetFont(font);
+	this->SetOwnBackgroundColour(wxColour(255, 98, 67, 255));
 }
 
 void Timer::ChangeState(PomodoroState pomostate, int Time)
@@ -174,6 +175,7 @@ void Timer::GetSettings(const char* name)
 	file >> ShortBreakTime;
 	file >> LongBreakTime;
 	file >> SessionsNum;
+	file >> msg->GetShowNotifi();
 	file.close();
 	
 }
