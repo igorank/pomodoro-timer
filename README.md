@@ -32,22 +32,6 @@ To keep things simple, you just need any C++ compiler and at least wxWidgets 3.1
 6. Press the Generate button.
 7. Open the wxWidgets project with your preferred IDE and build it.
 
-### Setting up wxWidgets Using Visual Studio 2019
-
-1. The documentation on the wxWidgets website suggests that you start by creating a Visual C++ Win32 project or by copying one of the Samples projects and modifying that. I prefer to start with an empty project: On the Start Page tab under New project, click on Empty Project Visual C++, or select the File->New->Project… menu item to open the New Project dialog; select Empty Project Visual C++. Change the project name near the bottom of the dialog. For the sake of this post, assume you have named the project MyProject. Select the Create directory for solution and Create new Git repository checkboxes as appropriate. Click the OK button to create the project. You now have a project with no source files.
-2. Right-click on the project name in the Solution Explorer. Select the Add->New Item… menu item to open the Add New Item dialog. Select the Header File (.h) item and enter the name of the header file for the application class (MyProjectApp.h). Click the Add button.
-3. Right-click on the project name in the Solution Explorer. Select the Add->New Item… menu item to open the Add New Item dialog. Select the C++ File (.cpp) item and enter the name of source file for the application class (MyProjectApp.cpp). Click the Add button.
-4. Perform the following steps to set up project specific settings:
-  * In Solution Explorer, open the context menu for the project that you just created (MyProject, or whatever you named it). Select the Properties menu item. This opens the project’s Property Pages: 
-
-![set](https://computingonplains.files.wordpress.com/2019/01/projectpropertypages.png)
-
-  * Select Configuration Properties→Advanced→Character Set. Click on the dropdown button dropdownbutton. Select Use Unicode Character Set. Click the Apply button.
-  * Select Configuration→C/C++→Preprocessor→Preprocessor Definitions and open its editor. Enter WXUSINGDLL, press Enter, and click on the OK button to close the editor.
-
-5. In the Property Pages dialog, click the Apply button and then the OK button.
-6. Build the program, and run it.
-
 ## Todo
 
 Minimize to Tray
